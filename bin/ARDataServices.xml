@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARDataServices</name>
+    </assembly>
+    <members>
+        <member name="T:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer">
+             <summary>
+             Serialize and deserialize objects into and from Xml.
+             Write operations serialize the object into various target mediums.
+             Read operations deserialize the object from various source mediums.
+             </summary>
+             <remarks>
+             Designed and Created by Larry Steinle, 2006.
+             
+             Deserializing structure data types is not supported.
+             Serialization/Deserialization of circular references is not supported.
+             Designed for use with System.Xml.Serialization.IXmlSerializable.
+             
+             Standard FreeWare Licensing Applies. This software is to be used free of charge and may not be sold.
+            
+             Resources:
+             http://www.programmersheaven.com/2/Dot-Net-Reflection-Part-1-Page2
+             Elements are used with inner text at all times. Attributes aren't supported. 
+             This ensures that we won't have any translation problems when loading the Xml into the target object.
+             Note: This class does not support deserializing structures.
+            
+             Reason Structures Aren't Supported for Deserialization: http://www.dotnet247.com/247reference/msgs/31/158508.aspx
+             The SetValue method takes an object parameter, which causes a boxing
+             operation. SetValue ends up being called on the heap-based boxed copy
+             rather than the stack-based copy. You need to unbox the heap-based copy
+             back to the stack to see the end result of the SetValue call.
+             
+             Conversion From VB.Net to C#: http://www.harding.edu/USER/fmccown/WWW/vbnet_csharp_comparison.html
+              To simplify conversion between VB.Net and C# the following rules have been applied:
+                Avoided use of Do...Until logic because it is not supported in the "real" programming language: C#.
+                Made all data types supportable in both C# and VB.Net, 2003 and 2005.
+                Used System.Convert instead of CType whenever possible.
+             
+             FIX: December 9, 2006 - Code Changes to Correctly Manage IDictionary Object Types
+             When serializing/deserializing classes that inherit from IDictionary the property
+             IncludeClassNameAttribute must be set to a value of True. This is because the item
+             property for an IDictionary class cannot be interogated for it's data type. The item
+             property always returns a DictionaryEntry which has a value type of object.
+             </remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadXml(System.Xml.XmlReader,System.Object)">
+            <summary>
+            Deserialize Xml into the target object.
+            </summary>
+            <param name="reader">The source of the Xml to load.</param>
+            <param name="target">The destination for the Xml.</param>
+            <remarks>
+            The target must be passed in ByVal and returned to support data type variable serialization.
+            </remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadXml(System.Xml.XmlNode,System.Object)">
+            <summary>
+            Deserialize Xml into the target object.
+            </summary>
+            <param name="node">The Xml to load into the object.</param>
+            <param name="target">The destination for the Xml.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadXml(System.Xml.XmlDocument,System.Object)">
+            <summary>
+            Deserialize Xml into the target object.
+            </summary>
+            <param name="document">The Xml to load into the object.</param>
+            <param name="target">The destination for the Xml.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadXml(System.String,System.Object)">
+            <summary>
+            Deserialize Xml into the target object.
+            </summary>
+            <param name="path">A path to the file with the Xml to load into the object.</param>
+            <param name="target">The destination for the Xml.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadXml(System.Text.StringBuilder,System.Object)">
+            <summary>
+            Deserialize Xml into the target object.
+            </summary>
+            <param name="text">The Xml to load into the object.</param>
+            <param name="target">The destination for the Xml.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.WriteDocument(System.Object)">
+            <summary>
+            Serialize the source object into an XmlDocument following "Shallow Copy" business logic.
+            </summary>
+            <param name="source">The object to serialize.</param>
+            <returns>The serialized object.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.WriteFile(System.Object,System.String,System.Boolean)">
+            <summary>
+            Serialize the source object into a file following "Shallow Copy" business logic.
+            </summary>
+            <param name="source">The object to serialize.</param>
+            <param name="path">The file to save the Xml into.</param>
+            <param name="replaceFile">
+            If true the file is deleted before the contents are saved.
+            If false and the file exists serialization is terminated.
+            </param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.WriteString(System.Object)">
+            <summary>
+            Serialize the source object into a string following "Shallow Copy" business logic.
+            </summary>
+            <param name="source">The object to serialize.</param>
+            <returns>The serialized object.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.WriteText(System.Object)">
+            <summary>
+            Serialize the source object into an StringBuilder following "Shallow Copy" business logic.
+            </summary>
+            <param name="source">The object to serialize.</param>
+            <returns>The serialized object.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.WriteXml(System.Object,System.Xml.XmlWriter,System.String)">
+            <summary>
+            Serialize the source object into an XmlWriter following "Shallow Copy" business logic.
+            </summary>
+            <param name="source">The object to serialize.</param>
+            <param name="writer">The destination for the xml.</param>
+            <param name="propertyName">If serializing a class property provide the name of the property. If serializing a class then set to nothing.</param>
+            <remarks>
+            Shallow Copy means that only the exposed properties are serialized. 
+            Hidden fields, properties, or protected properties are ignored.
+            </remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadFields(System.Xml.XmlReader,System.Object)">
+            <summary>
+            Assings the Xml values to the fields.
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <param name="target">The class containing the fields to update.</param>
+            <returns>The updated class.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadProperties(System.Xml.XmlReader,System.Object)">
+            <summary>
+            Assings the Xml values to the properties.
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <param name="target">The class containing the fields to update.</param>
+            <returns>The updated class.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ReadChildren(System.Xml.XmlReader,System.Object,System.Object)">
+            <summary>
+            Analyzes the Xml to build the child objects adding them to the list property.
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <param name="target">The class containing the list field to update.</param>
+            <param name="propertyMember">The IEnumerable property.</param>
+            <returns>The updated class.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.WriteFields(System.Object,System.Xml.XmlWriter)">
+            <summary>
+            Translates the fields of object, target, into Xml Elements.
+            </summary>
+            <param name="source">The object to serialize.</param>
+            <param name="writer">The destination for the xml.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.WriteProperties(System.Object,System.Xml.XmlWriter)">
+            <summary>
+            Translates the properties of object, target, into Xml Elements.
+            </summary>
+            <param name="source">The object to serialize.</param>
+            <param name="writer">The destination for the xml.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.MoveToRootNode(System.Xml.XmlReader)">
+            <summary>
+            Advances to the first node
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.MoveToValueNode(System.Xml.XmlReader)">
+            <summary>
+            Advance to the inner node, the tag between the open and closing element tags to access the element's value.
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.MoveToNextNode(System.Xml.XmlReader)">
+            <summary>
+            Advance to the next xml element.
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.MoveToNextTag(System.Xml.XmlReader)">
+            <summary>
+            Advance to the next xml tag.
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.GetAttributes(System.Xml.XmlReader)">
+            <summary>
+            Returns a key/value pair representing the attributes in the element.
+            </summary>
+            <param name="reader">The bufferred xml to analyze.</param>
+            <returns>A sorted list of the attributes with the name as the key and the value as the value.</returns>
+            <remarks>Executing this method querries the current node for the attributes without advancing to the next node.</remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.IsDataType(System.Object,System.Boolean)">
+            <summary>
+            Identifies if the object is a data type.
+            </summary>
+            <param  name="  valueIsTypeName  " >The object to test.</param>
+            <returns>True if the value is a data type.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.CreateClass(System.Collections.SortedList,System.Object,System.Reflection.MemberInfo)">
+            <summary>
+            Instantiates a new class.
+            </summary>
+            <param name="attributes">The attributes from the Xml used to identify the class type.</param>
+            <param name="target">The class containing the reference to the member to create.</param>
+            <param name="member">Information about the member to create.</param>
+            <returns>The instantiated class.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.InstantiateMember(System.Reflection.Assembly@,System.String)">
+            <summary>
+            Creates an instance of the class.
+            </summary>
+            <param name="classAssembly">The assembly where the class to create is stored.</param>
+            <param name="className">The fullname of the class to create.</param>
+            <returns>If successful the instantiated class, otherwise nothing.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.SaveValue(System.Object@,System.String@,System.Object)">
+            <summary>
+            Assigns a casted value to the target object.
+            </summary>
+            <param name="target">The object to update.</param>
+            <param name="valueType">The type to cast the value to.</param>
+            <param name="dataValue ">The value to cast and assign.</param>
+            <remarks>
+            This has to be done to support assignment to values of type object.
+            Without this code all values would be assigned as strings.
+            </remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.SaveValue(System.Object@,System.Reflection.FieldInfo@,System.Object@)">
+            <summary>
+            Assigns a strongly-typed data type to the member.
+            </summary>
+            <param name="target">The object containing the field.</param>
+            <param name="targetField">A FieldInfo object representing the field to update.</param>
+            <param name=" dataValue ">The value to assign to the field.</param>
+            <remarks>
+            This has to be done to support assignment to fields of type object.
+            Without this code all values would be assigned as strings.
+            </remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.SaveValue(System.Object@,System.Reflection.PropertyInfo@,System.Object@)">
+            <summary>
+            Assigns a strongly-typed data type to the member.
+            </summary>
+            <param name="target">The object containing the property.</param>
+            <param name="targetProperty">A PropertyInfo object representing the property to update.</param>
+            <param name=" dataValue ">The value to assign to the property.</param>
+            <remarks>
+            This has to be done to support assignment to properties of type object.
+            Without this code all values would be assigned as strings.
+            </remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ExecuteAddMethod(System.Object,System.Object,System.Object)">
+            <summary>
+            Executes the add method of the list object when supported.
+            </summary>
+            <param name="target">The class containing the method to execute.</param>
+            <param name="key">The key value for DictionaryEntries. Use Nothing if a type other than DictionaryEntry.</param>
+            <param name=" dataValue ">The value to assign to the class.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ExecuteEnqueueMethod(System.Object,System.Object,System.Object)">
+            <summary>
+            Executes the Enqueue method of the list object when supported.
+            </summary>
+            <param name="target">The class containing the method to execute.</param>
+            <param name="key">The key value for DictionaryEntries. Use Nothing if a type other than DictionaryEntry.</param>
+            <param name=" dataValue ">The value to assign to the class.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ExecutePushMethod(System.Object,System.Object,System.Object)">
+            <summary>
+            Executes the Push method of the list object when supported.
+            </summary>
+            <param name="target">The class containing the method to execute.</param>
+            <param name="key">The key value for DictionaryEntries. Use Nothing if a type other than DictionaryEntry.</param>
+            <param name=" dataValue ">The value to assign to the class.</param>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.ExecuteClearMethod(System.Object)">
+            <summary>
+            Executes the clear method of the list object when supported.
+            </summary>
+            <param name="target">The class containing the method to execute.</param>
+            <remarks></remarks>
+        </member>
+        <member name="P:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.CDataStorage">
+            <summary>
+            Serialize string values into xml CData tags.
+            </summary>
+            <value>True to enable CData serialization, False to disable and store as string.</value>
+            <returns>Boolean value identifing property state.</returns>
+            <remarks>When enabled strings and enumerators are stored in CData tags.</remarks>
+        </member>
+        <member name="P:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.IgnoreWarnings">
+            <summary>
+            Ignore warnings and allow operation to continue.
+            </summary>
+            <value>True to ignore warning errors, False to throw warning errors.</value>
+            <returns>Boolean value identifing property state.</returns>
+            <remarks>Use with caution as deserialization can load objects with incomplete data.</remarks>
+        </member>
+        <member name="P:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.IncludeClassNameAttribute">
+            <summary>
+            Record the name of the class when serializing to ensure that the
+            class can be deserialized.
+            </summary>
+            <value>True to include the className, False to exclude it.</value>
+            <returns>The state of the property.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="P:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.Method">
+            <summary>
+            Identifies how the class should be serialized.
+            </summary>
+            <value>Shallow to serialize public fields and properties. Deep to serialize private, friend, and public fields and properties.</value>
+            <returns>The state of the property.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="P:PortSight.SecureAccess.ARDataServices.CustomXmlSerializer.BindingCriteria">
+            <summary>
+            Defines the Reflection BindingFlags required to support the selected SerializationMethod.
+            </summary>
+            <returns>The state of the property.</returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.ARDBLiveSession.Update(System.Int32,System.String,System.String,System.String,System.String,System.DateTime,System.DateTime)">
+            <summary>
+            Updates data of the object with specified ObjectID.
+            </summary>
+            <param name="ObjectID"></param>
+            <param name="HostName"></param>
+            <param name="MachineName"></param>
+            <param name="ApplicationName"></param>
+            <param name="SessionID"></param>
+            <param name="ObjectValidFrom"></param>
+            <param name="ObjectValidTo"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.ARDBLiveSession.Insert(System.Int32,System.String,System.String,System.String,System.String,System.DateTime,System.DateTime)">
+            <summary>
+            Inserts a new object while cheking if specified alias and login are unique. It returns the ObjectID of the new object.
+            </summary>
+            <param name="ObjectID"></param>
+            <param name="HostName"></param>
+            <param name="MachineName"></param>
+            <param name="ApplicationName"></param>
+            <param name="SessionID"></param>
+            <param name="ValidFrom"></param>
+            <param name="ValidTo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.ARDBLiveSession.Delete(System.Int32)">
+            <summary>
+            Deletes specified object.
+            </summary>
+            <param name="ObjectID"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.ARDBLiveSession.Delete(System.Int32,System.String,System.String,System.String,System.String,System.DateTime,System.DateTime)">
+            <summary>
+            Deletes specified object.
+            </summary>
+            <param name="ObjectID"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.ARDBLiveSession.DeleteSpecific(System.String)">
+            <summary>
+            Deletes specified object.
+            </summary>
+            <param name="Condition"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.ARDBLiveSession.Delete(System.String,System.String)">
+            <summary>
+            Deletes specified objects.
+            </summary>
+            <param name="ObjectID"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARDataServices.ARDBLiveSession.Select(System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            Deletes specified object.
+            </summary>
+            <param name="ObjectID"></param>
+        </member>
+    </members>
+</doc>

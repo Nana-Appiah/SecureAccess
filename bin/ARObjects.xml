@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARObjects</name>
+    </assembly>
+    <members>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARConnection.GetSession(System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns user session.
+            </summary>
+            <param name="ObjectID"></param>
+            <param name="HostName"></param>
+            <param name="MachineName"></param>
+            <param name="ApplicationName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARConnection.DeleteUnVerified">
+            <summary>
+            Delete users not verified by e-mail and the account validity for registration has expired.
+            </summary>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARConnection.GetUnverifiedUserByHash(System.String)">
+            <summary>
+            Try to find verification key in preregisteder users. 
+            The account validity for registration cannot be expired.
+            </summary>
+            <param name="hash"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARHelper.DeleteUnVerified(System.String)">
+            <summary>
+            Delete users not verified by e-mail and the account validity for registration has expired.
+            </summary>
+            <param name="ConnectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARHelper.GetUnverifiedUser(System.String,System.String)">
+            <summary>
+            Try to find verification key in preregisteder users. 
+            The account validity for registration cannot be expired.
+            </summary>
+            <param name="hash"></param>
+            <param name="ConnectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARHelper.GetSession(System.Int32,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns user session.
+            </summary>
+            <param name="ObjectID"></param>
+            <param name="HostName"></param>
+            <param name="MachineName"></param>
+            <param name="ApplicationName"></param>
+            <param name="ConnectionString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.#ctor(System.Int32,System.String,System.String,System.String,System.String,System.TimeSpan)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="ObjectID"></param>
+            <param name="HostName"></param>
+            <param name="MachineName"></param>
+            <param name="ApplicationName"></param>
+            <param name="SessionID"></param>
+            <param name="Validity"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.Load(System.Data.DataRow)">
+            <summary>
+            Loads ARLiveSession properties from provided DataRow.
+            </summary>
+            <param name="dr"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.Update">
+            <summary>
+            Updates appropriate object record.
+            </summary>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.InsertNew(System.Int32)">
+            <summary>
+            Not implemented. Inserts new object into database and sets the ObjectID property value to the new ObjectID.
+            </summary>
+            <param name="ownerID"></param>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.InsertNew">
+            <summary>
+            Inserts new object into database. 
+            </summary>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.Delete">
+            <summary>
+            Deletes current object from the database.
+            </summary>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.GetDataTable">
+            <summary>
+            Returns DataTable containing current AR_LiveSession data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PortSight.SecureAccess.ARObjects.ARLiveSession.IsLocked">
+            <summary>
+            Returns true if current object is locked
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
